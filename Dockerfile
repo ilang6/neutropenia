@@ -1,4 +1,4 @@
-FROM registry.access.redhat.com/ubi8/python-39:latest
+FROM python:3.9.18-slim-bullseye
 
 USER root
 
@@ -6,12 +6,13 @@ WORKDIR /microservice/
 COPY . .
 
 RUN pip install -r /microservice/requirements.txt
-#RUN /opt/app-root/bin/python3.9 -m pip install --upgrade pip
+#RUN /opt/app-root/bin/python3.9 -m pip install --upgrade pipn
 RUN pip uninstall -y setuptools urllib3
-RUN pip install setuptools==67.2.0
-RUN pip install urllib3==1.26.14
-RUN python -m pip uninstall -y pip
-RUN python get-pip.py
-RUN yum -y update
+RUN pip install setuptools==69.1.0
+RUN pip install urllib3==2.2.1
+RUN python -m pip install --upgrade pip
+#RUN python get-pip.py
+RUN apt update -y
+RUN apt upgrade -y 
 
 CMD [ "uvicorn", "server:app", "--reload", "--host", "0.0.0.0", "--port", "1234" ]

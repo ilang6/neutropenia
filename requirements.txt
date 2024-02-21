@@ -1,0 +1,10 @@
+typing
+fastapi
+pydantic
+datetime
+requests
+uvicorn
+pandas
+numpy
+scikit-learn
+ 
