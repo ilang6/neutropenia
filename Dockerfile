@@ -7,7 +7,12 @@ COPY . .
 RUN apt update -y 
 RUN apt install -y \ 
                  unixodbc-dev \
-                 libgomp1   
+                 libgomp1 \
+                 curl
+RUN curl https://packages.microsoft.com/keys/microsoft.asc |  tee /etc/apt/trusted.gpg.d/microsoft.asc
+RUN curl https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/prod.list |  tee /etc/apt/sources.list.d/mssql-release.list
+RUN apt-get update -y  
+RUN ACCEPT_EULA=Y apt-get install -y msodbcsql18 
 RUN pip install -r /microservice/requirements.txt
 #RUN /opt/app-root/bin/python3.9 -m pip install --upgrade pip
 RUN pip uninstall -y setuptools urllib3
