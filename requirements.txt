@@ -7,4 +7,5 @@ uvicorn
 pandas
 numpy
 scikit-learn
- 
+pyodbc
+lightgbm 
